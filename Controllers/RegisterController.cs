@@ -1,6 +1,9 @@
-﻿using Final.Models;
+﻿using Final.EFW.Entities;
+using Final.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Net;
 
 namespace Final.Controllers
 {
@@ -9,13 +12,20 @@ namespace Final.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            CookieBuilder _cookie = new CookieBuilder();
+            _cookie.Build(HttpContent);
+            cookie.Values["CompanyID"] = Convert.ToString(CompanyId);
+            Response.SetCookie(cookie); //SetCookie() is used for update the cookie.
+            Response.Cookies.Add(cookie);
             Header _header = new Header();
             return View(_header);
         }
         [HttpPost]
         public IActionResult Register(string login, string password)
         {
-            Header _header = new Header(login, password);
+            CookieBuilder _cookie = new CookieBuilder();
+            _cookie.Build(HttpContext);
+            Header _header = new Header(login, password, _cookie);
             return View(_header);
         }
 

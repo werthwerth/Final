@@ -11,7 +11,7 @@
             loginButtonController = "Home";
             loginButtonAction = "Privacy";
         }
-        public Header(string _login, string _password)
+        public Header(string _login, string _password, CookieBuilder _Cookie)
         {
             registerButtonName = $"{_login}/{_password}";
             registerButtonController = "Register";
@@ -19,6 +19,7 @@
             loginButtonName = "Login";
             loginButtonController = "Home";
             loginButtonAction = "Privacy";
+            Cookie = _Cookie;
         }
         public string? registerButtonName { get; set; }
         public string? registerButtonController { get; set; }
@@ -28,5 +29,6 @@
         public string? loginButtonAction { get; set; }
         public bool? isLogged {  get; set; }
         public string? login {  get; set; }
+        public CookieBuilder Cookie {  get; set; }
     }
 }
