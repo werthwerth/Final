@@ -1,8 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Register Page";
+    ViewData["Title"] = "ByeBye Page";
 }
 
-@model LoginModel
+@model ExitModel
 
 @section Header {
     <div class="container-fluid">
@@ -36,17 +36,5 @@
 
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to test-O!</h1>
-    <p>Test-O!</p>
-    @if (@Model._LoginResult != null && !@Model._LoginResult.success)
-    {
-        <p>WRONG!</p>
-    }
-    <form id="loginForm" method="post">
-        <label>Логин:</label><br />
-        <input type="text" name="login" id="login" /><br /><br />
-        <label>Пароль:</label><br />
-        <input type="password" name="password" id="password" /><br /><br />
-        <input type="submit" value="Отправить" />
-    </form>
+    <h1 class="display-4">Bye!</h1>
 </div>

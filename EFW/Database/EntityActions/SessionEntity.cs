@@ -47,5 +47,15 @@ namespace Final.EFW.Database.EntityActions
             _db.context.Sessions.Add(_session);
             _db.context.SaveChanges();
         }
+        protected internal static void End(string _sessionId, Core.DB _db)
+        {
+            Session? _session = _db.context.Sessions.FirstOrDefault(x => x.SessionId == _sessionId) ?? null;
+            if (_session != null)
+            {
+                _session.ExpirationDate = DateTime.UtcNow;
+                _db.context.Sessions.Update(_session);
+                _db.context.SaveChanges();
+            }
+        }
     }
 }

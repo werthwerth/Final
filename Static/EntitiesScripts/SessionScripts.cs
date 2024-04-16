@@ -46,5 +46,9 @@ namespace Final.Static.EntitiesScripts
             SessionEntity.Start(_newSessionId, _db, _user);
             return _newSessionId;
         }
+        public static void End(string _sessionId, Core.DB _db)
+        {
+            SessionEntity.End(_sessionId, _db);
+        }
     }
 }

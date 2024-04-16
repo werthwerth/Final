@@ -8,6 +8,8 @@ namespace Final
     {
         public static void Main(string[] args)
         {
+            Core.DB _db = new Core.DB();
+            Core.CheckDBStaticValues( _db );
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.

@@ -18,7 +18,6 @@ namespace Final.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            this.Response.Cookies.Append("salt", RandomString.Generate());
             var _RegisterModel = new RegisterModel();
             string? _sessionId = this.Request.Cookies["sessionId"];
             if (!System.String.IsNullOrEmpty(_sessionId))
@@ -35,10 +34,9 @@ namespace Final.Controllers
         [HttpPost]
         public IActionResult Register(string login, string password, string firstName, string lastName, string email)
         {
-            //Console.WriteLine(SHA512Hash.Calculate("123"));
             Core.DB _db = new Core.DB();
             string? _sessionId = this.Request.Cookies["sessionId"];
-            RegisterModel _RegisterModel = new RegisterModel(login, password, this.Request.Cookies["salt"], firstName, lastName, email, _db, _sessionId);
+            RegisterModel _RegisterModel = new RegisterModel(login, password, firstName, lastName, email, _db, _sessionId);
             if (!System.String.IsNullOrEmpty(_RegisterModel.sessionId))
             {
                 this.Response.Cookies.Append("sessionId", _RegisterModel.sessionId);
