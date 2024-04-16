@@ -63,31 +63,36 @@ namespace Final.EFW.Database
             }
         }
 
+        public class StaticUserRole
+        {
+            public StaticUserRole(string _type, string _name)
+            {
+                type = _type;
+                name = _name;
+            }
+
+            public string type { get; set; }
+            public string name { get; set; }
+        }
         public static void CheckDBStaticValues(DB _db)
         {
-            
+
             List<string> _names = new List<string>() { "Пользователи", "Модераторы", "Администраторы" };
             foreach (string _name in _names)
             {
                 RoleEntity.Add(_name, _db);
             }
 
-            List<string> _userTypes = new List<List<string>>() { "Regular","" "Moderator", "Admin" };
-            foreach (string _type in _userTypes)
+            List<StaticUserRole> _userTypes = new List<StaticUserRole> { new StaticUserRole("Regular", "Пользователи"), new StaticUserRole("Moderator", "Модераторы"), new StaticUserRole("Admin", "Администраторы") };
+            foreach (StaticUserRole _StaticUserRole in _userTypes)
             {
-                if (!UserEntity.Check($"{_type}User", _db))
+                if (!UserEntity.Check($"{_StaticUserRole.type}User", _db))
                 {
-                    Role? _regularRole = _db.context.Roles.FirstOrDefault(x => x.Name == "Пользователи") ?? null;
-                    UserEntity.Register("RegularUser", _db, SHA512Hash.Calculate("RegularPassword"), "Regular", "User", "RegularUser@mail.ru", _regularRole);
+                    Role? _role = _db.context.Roles.FirstOrDefault(x => x.Name == _StaticUserRole.name) ?? null;
+                    UserEntity.Register($"{_StaticUserRole.type}User", _db, SHA512Hash.Calculate($"{_StaticUserRole.type}Password"), _StaticUserRole.type, "User", $"{_StaticUserRole.type}User@mail.ru", _role);
                 }
             }
-
-            
-            Role? _moderatorRole = _db.context.Roles.FirstOrDefault(x => x.Name == "Модераторы") ?? null;
-            Role? _adminRole = _db.context.Roles.FirstOrDefault(x => x.Name == "Администраторы") ?? null;
-            
-            UserEntity.Register("ModeratorUser", _db, SHA512Hash.Calculate("ModeratorPassword"), "Moderator", "User", "ModeratorUser@mail.ru", _moderatorRole);
-            UserEntity.Register("AdminUser", _db, SHA512Hash.Calculate("AdminPassword"), "Admin", "User", "AdminUser@mail.ru", _adminRole);
         }
     }
 }
+

@@ -23,13 +23,13 @@ namespace Final.EFW.Database.EntityActions
         }
         protected internal static void Register(string _login, DB _db, string _password, string _firstName, string _lastName, string _email, Role? _role = null)
         {
-            if (_role == null) 
-            { 
-                _role = _db.context.Roles.FirstOrDefault(x => x.Name == "Пользователи"); 
+            if (_role == null)
+            {
+                _role = _db.context.Roles.FirstOrDefault(x => x.Name == "Пользователи");
             }
             User _user = new User();
             _user.Var(_login, _email, _password, _firstName, _lastName, _role);
-            _db.context.Users.Add(_user);
+            _db.context.Users.Add(_user)}
             _db.context.SaveChanges();
         }
         protected internal static User? GetByLogin(string _login, DB _db)
