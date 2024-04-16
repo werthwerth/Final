@@ -18,6 +18,11 @@ namespace Final.EFW.Database
             public DbSet<User> Users { get; set; }
             public DbSet<Session> Sessions { get; set; }
             public DbSet<Role> Roles { get; set; }
+            public DbSet<Article> Articles { get; set; }
+            public DbSet<Tag> Tags { get; set; }
+            public DbSet<Comment> Comments { get; set; }
+            public DbSet<ArticleTag> ArticleTags { get; set; }
+
 
             public ApplicationContext()
             {
@@ -48,6 +53,30 @@ namespace Final.EFW.Database
                     eb.Property(x => x.Id).IsRequired().HasDefaultValue(Guid.NewGuid().ToString());
                     eb.Property(x => x.CreateDate).IsRequired().HasDefaultValue(DateTime.UtcNow);
                 });
+                modelBuilder.Entity<Article>(eb =>
+                {
+                    eb.HasKey(x => x.Id);
+                    eb.Property(x => x.Id).IsRequired().HasDefaultValue(Guid.NewGuid().ToString());
+                    eb.Property(x => x.CreateDate).IsRequired().HasDefaultValue(DateTime.UtcNow);
+                });
+                modelBuilder.Entity<Tag>(eb =>
+                {
+                    eb.HasKey(x => x.Id);
+                    eb.Property(x => x.Id).IsRequired().HasDefaultValue(Guid.NewGuid().ToString());
+                    eb.Property(x => x.CreateDate).IsRequired().HasDefaultValue(DateTime.UtcNow);
+                });
+                modelBuilder.Entity<Comment>(eb =>
+                {
+                    eb.HasKey(x => x.Id);
+                    eb.Property(x => x.Id).IsRequired().HasDefaultValue(Guid.NewGuid().ToString());
+                    eb.Property(x => x.CreateDate).IsRequired().HasDefaultValue(DateTime.UtcNow);
+                });
+                modelBuilder.Entity<ArticleTag>(eb =>
+                {
+                    eb.HasKey(x => x.Id);
+                    eb.Property(x => x.Id).IsRequired().HasDefaultValue(Guid.NewGuid().ToString());
+                    eb.Property(x => x.CreateDate).IsRequired().HasDefaultValue(DateTime.UtcNow);
+                });
             }
         }
         public class DB
@@ -60,6 +89,10 @@ namespace Final.EFW.Database
                 context.Users.Load();
                 context.Sessions.Load();
                 context.Roles.Load();
+                context.Articles.Load();
+                context.Tags.Load();
+                context.Comments.Load();
+                context.ArticleTags.Load();
             }
         }
 

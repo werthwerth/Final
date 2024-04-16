@@ -2,7 +2,7 @@
 
 namespace Final.EFW.Entities
 {
-    public class ArticleTags
+    public class ArticleTag
     {
         protected internal void Var(Article _article, Tag _tag)
         {
