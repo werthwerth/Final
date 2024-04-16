@@ -1,3 +1,7 @@
+using Final.EFW.Database;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+
 namespace Final
 {
     public class Program
@@ -21,7 +25,7 @@ namespace Final
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

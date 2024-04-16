@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model Header
+@model IndexModel
 
 @section Header {
     <div class="container-fluid">
@@ -24,10 +24,10 @@
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
             <ul class="navbar-nav flex-grow-1 justify-content-end">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Register" asp-action="Register">Register</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="@Model.RegisterButtonController" asp-action="@Model.RegisterButtonAction">@Model.RegisterButtonName</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="@Model.LoginButtonController" asp-action="@Model.LoginButtonAction">@Model.LoginButtonName</a>
                 </li>
             </ul>
         </div>

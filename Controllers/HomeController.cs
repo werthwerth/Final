@@ -1,4 +1,6 @@
+using Final.EFW.Database;
 using Final.Models;
+using Final.Static;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,7 +17,14 @@ namespace Final.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var _IndexModel = new IndexModel();
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                _IndexModel = new IndexModel(_sessionId, _db);
+            }
+            return View(_IndexModel);
         }
 
         public IActionResult Privacy()

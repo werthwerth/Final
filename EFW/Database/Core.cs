@@ -14,7 +14,6 @@ namespace Final.EFW.Database
 
             public ApplicationContext()
             {
-                Database.EnsureDeleted();
                 Database.EnsureCreated();
             }
 
@@ -27,24 +26,23 @@ namespace Final.EFW.Database
                 modelBuilder.Entity<User>(eb =>
                 {
                     eb.HasKey(x => x.Id);
-                    eb.Property(x => x.Id).IsRequired().HasDefaultValue(Guid.NewGuid());
+                    eb.Property(x => x.Id).IsRequired().HasDefaultValue(Guid.NewGuid().ToString());
                     eb.Property(x => x.CreateDate).IsRequired().HasDefaultValue(DateTime.UtcNow);
                 });
                 modelBuilder.Entity<Session>(eb =>
                 {
                     eb.HasKey(x => x.Id);
-                    eb.Property(x => x.Id).IsRequired().HasDefaultValue(Guid.NewGuid());
+                    eb.Property(x => x.Id).IsRequired().HasDefaultValue(Guid.NewGuid().ToString());
                     eb.Property(x => x.CreateDate).IsRequired().HasDefaultValue(DateTime.UtcNow);
                 });
             }
         }
-        internal class DB
+        public class DB
         {
             protected internal ApplicationContext context;
             protected internal DB()
             {
                 context = new ApplicationContext();
-                context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
                 context.Users.Load();
                 context.Sessions.Load();

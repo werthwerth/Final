@@ -4,29 +4,46 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Final.Static;
+using Final.EFW.Database;
 
 namespace Final.Controllers
 {
+
     public class RegisterController : Controller
     {
         [HttpGet]
         public IActionResult Register()
         {
-            CookieBuilder _cookie = new CookieBuilder();
-            _cookie.Build(HttpContent);
-            cookie.Values["CompanyID"] = Convert.ToString(CompanyId);
-            Response.SetCookie(cookie); //SetCookie() is used for update the cookie.
-            Response.Cookies.Add(cookie);
-            Header _header = new Header();
-            return View(_header);
+            this.Response.Cookies.Append("salt", RandomString.Generate());
+            var _RegisterModel = new RegisterModel();
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            { 
+                Core.DB _db = new Core.DB();
+                _RegisterModel = new RegisterModel(_sessionId, _db);
+            }
+            if (!System.String.IsNullOrEmpty(_RegisterModel.sessionId))
+            {
+                this.Response.Cookies.Append("sessionId", _RegisterModel.sessionId);
+            }
+            return View(_RegisterModel);
         }
         [HttpPost]
-        public IActionResult Register(string login, string password)
+        public IActionResult Register(string login, string password, string firstName, string lastName, string email)
         {
-            CookieBuilder _cookie = new CookieBuilder();
-            _cookie.Build(HttpContext);
-            Header _header = new Header(login, password, _cookie);
-            return View(_header);
+            //Console.WriteLine(SHA512Hash.Calculate("123"));
+            Core.DB _db = new Core.DB();
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            RegisterModel _RegisterModel = new RegisterModel(login, password, this.Request.Cookies["salt"], firstName, lastName, email, _db, _sessionId);
+            if (!System.String.IsNullOrEmpty(_RegisterModel.sessionId))
+            {
+                this.Response.Cookies.Append("sessionId", _RegisterModel.sessionId);
+            }
+            return View(_RegisterModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

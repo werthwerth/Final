@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Final.Static.EntitiesScripts;
 
 namespace Final.EFW.Entities
 {
     public class User
     {
-        protected internal void Var(string _Login, string _Email, string _PasswordHash, string _Salt, string _FirstName, string _LastName)
+        protected internal void Var(string _Login, string _Email, string _PasswordHash, string? _Salt, string _FirstName, string _LastName)
         {
             Login = _Login;
             Email = _Email;
