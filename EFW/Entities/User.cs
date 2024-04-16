@@ -16,6 +16,7 @@ namespace Final.EFW.Entities
             {
                 Role = _role;
             }
+            
         }
         [Key]
         public string? Id { get; set; }

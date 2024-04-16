@@ -29,7 +29,7 @@ namespace Final.EFW.Database.EntityActions
             }
             User _user = new User();
             _user.Var(_login, _email, _password, _firstName, _lastName, _role);
-            _db.context.Users.Add(_user)}
+            _db.context.Users.Add(_user);
             _db.context.SaveChanges();
         }
         protected internal static User? GetByLogin(string _login, DB _db)
