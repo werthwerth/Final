@@ -14,8 +14,10 @@ namespace Final.EFW.Database.EntityActions
             Role? _role = _context.Roles.FirstOrDefault(x => x.Name == _name) ?? null;
             if (_role == null)
             {
+                int? _maxAccessLevel = _context.Roles.Select(x => x.AcessLevel).Max().GetValueOrDefault(0);
+
                 _role = new Role();
-                _role.Var(_name);
+                _role.Var(_name, _maxAccessLevel+1);
                 _context.Roles.Add(_role);
                 _context.SaveChanges();
             }

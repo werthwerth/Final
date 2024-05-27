@@ -110,7 +110,7 @@ namespace Final.EFW.Database
         public static void CheckDBStaticValues(DB _db)
         {
 
-            List<string> _names = new List<string>() { "Пользователи", "Модераторы", "Администраторы" };
+            List<string> _names = new List<string>() { "Администраторы", "Модераторы", "Пользователи" };
             foreach (string _name in _names)
             {
                 RoleEntity.Add(_name, _db);
