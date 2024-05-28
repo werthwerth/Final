@@ -1,8 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Kurwa Home Page";
+    ViewData["Title"] = "Roles add";
 }
 
-@model IndexModel
+@model RolesAddModel
 
 @section Header {
     <div class="container-fluid">
@@ -16,13 +16,13 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarTagsDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle" href="#" id="TagsNavbarDropdown" role="button" data-bs-toggle="TagsNavbarDropdown" aria-expanded="false">
                         Tags
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarTagsDropDown">
-                        <li><a class="text-dark dropdown-item" asp-area="" asp-controller="Tags" asp-action="Add">Add</a></li>
-                        <li><a class="text-dark dropdown-item" asp-area="" asp-controller="Tags" asp-action="All">All</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Tags" asp-action="Add">Add</a></li>
+                        <li><a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Tags" asp-action="All">All</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -51,6 +51,16 @@
 
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to KurwaBlojec!</h1>
-    <p> Viva la Bober!</p>
+    <h1 class="display-4">Добавление нвоых ролей</h1>
+    <form id="addRoleForm" method="post">
+        <div class="mb-3">
+            <label>Название</label><br />
+            <input type="text" name="roleName" id="roleName" /><br /><br />
+            <label>Описание</label><br />
+            <textarea type="text" name="roleDescription" id="roleDescription" rows="3" /></textarea><br />
+        </div>
+        <input type="submit" value="Отправить" />
+    </form>    
+    <br />
+    <a class="link" asp-area="" asp-controller="Roles" asp-action="All">Перейти к списку всех ролей</a>
 </div>

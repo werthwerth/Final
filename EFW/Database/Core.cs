@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Final.EFW.Database.EntityActions;
 using System.Runtime.CompilerServices;
 using Final.Static;
+using System;
 
 namespace Final.EFW.Database
 {
@@ -63,7 +64,7 @@ namespace Final.EFW.Database
                 {
                     eb.HasKey(x => x.Id);
                     eb.Property(x => x.Id).IsRequired().HasDefaultValue(Guid.NewGuid().ToString());
-                    eb.Property(x => x.CreateDate).IsRequired().HasDefaultValue(DateTime.UtcNow);
+                    eb.Property(x => x.CreateDate).ValueGeneratedOnAdd().HasDefaultValue(DateTime.UtcNow);
                 });
                 modelBuilder.Entity<Comment>(eb =>
                 {
@@ -100,8 +101,8 @@ namespace Final.EFW.Database
         {
             public StaticUserRole(string _type, string _name)
             {
-                type = _type;
-                name = _name;
+                this.type = _type;
+                this.name = _name;
             }
 
             public string type { get; set; }

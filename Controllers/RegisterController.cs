@@ -41,7 +41,7 @@ namespace Final.Controllers
             {
                 this.Response.Cookies.Append("sessionId", _RegisterModel.sessionId);
             }
-            return View(_RegisterModel);
+            return RedirectToAction("Index", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

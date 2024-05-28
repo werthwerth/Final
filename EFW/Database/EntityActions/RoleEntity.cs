@@ -7,9 +7,13 @@ namespace Final.EFW.Database.EntityActions
     {
         protected internal static void Add(string _name, DB _db)
         {
-            Add(_name, _db.context);
+            Add(_name, _db.context, null);
         }
-        protected internal static void Add(string _name, ApplicationContext _context)
+        protected internal static void Add(string _name, DB _db, string? _description)
+        {
+            Add(_name, _db.context, _description);
+        }
+        protected internal static void Add(string _name, ApplicationContext _context, string? _description)
         {
             Role? _role = _context.Roles.FirstOrDefault(x => x.Name == _name) ?? null;
             if (_role == null)
@@ -17,7 +21,7 @@ namespace Final.EFW.Database.EntityActions
                 int? _maxAccessLevel = _context.Roles.Select(x => x.AcessLevel).Max().GetValueOrDefault(0);
 
                 _role = new Role();
-                _role.Var(_name, _maxAccessLevel+1);
+                _role.Var(_name, _maxAccessLevel+1, _description);
                 _context.Roles.Add(_role);
                 _context.SaveChanges();
             }

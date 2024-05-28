@@ -1,8 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Register Page";
+    ViewData["Title"] = "Tags page";
 }
 
-@model LoginModel
+@model TagsAddModel
 
 @section Header {
     <div class="container-fluid">
@@ -16,13 +16,22 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarTagsDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle" href="#" id="TagsNavbarDropdown" role="button" data-bs-toggle="TagsNavbarDropdown" aria-expanded="false">
                         Tags
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarTagsDropDown">
-                        <li><a class="text-dark dropdown-item" asp-area="" asp-controller="Tags" asp-action="Add">Add</a></li>
-                        <li><a class="text-dark dropdown-item" asp-area="" asp-controller="Tags" asp-action="All">All</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Tags" asp-action="Add">Add</a></li>
+                        <li><a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Tags" asp-action="All">All</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarRolesDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Roles
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarRolesDropDown">
+                        <li><a class="text-dark dropdown-item" asp-area="" asp-controller="Roles" asp-action="Add">Add</a></li>
+                        <li><a class="text-dark dropdown-item" asp-area="" asp-controller="Roles" asp-action="All">All</a></li>
                     </ul>
                 </li>
             </ul>
@@ -40,18 +49,14 @@
     </div>
 }
 
+
 <div class="text-center">
-    <h1 class="display-4">Welcome to test-O!</h1>
-    <p>Test-O!</p>
-    @if (@Model._LoginResult != null && !@Model._LoginResult.success)
-    {
-        <p>WRONG!</p>
-    }
-    <form id="loginForm" method="post" action=@Url.Action("Login", "Login")>
-        <label>Логин:</label><br />
-        <input type="text" name="login" id="login" /><br /><br />
-        <label>Пароль:</label><br />
-        <input type="password" name="password" id="password" /><br /><br />
+    <h1 class="display-4">Добавление тегов</h1>
+    <form id="addTagForm" method="post">
+        <label>Название</label><br />
+        <input type="text" name="tagName" id="tagName" /><br /><br />
         <input type="submit" value="Отправить" />
     </form>
+    <br />
+    <a class="link" asp-area="" asp-controller="Tags" asp-action="All">Перейти к списку всех тегов</a>
 </div>

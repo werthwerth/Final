@@ -22,7 +22,7 @@ namespace Final.Controllers
             {
                 this.Response.Cookies.Append("sessionId", _LoginModel.sessionId);
             }
-            return View(_LoginModel);
+            return View("Login", _LoginModel);
         }
         [HttpPost]
         public IActionResult Login(string login, string password)
@@ -34,7 +34,7 @@ namespace Final.Controllers
             {
                 this.Response.Cookies.Append("sessionId", _LoginModel.sessionId);
             }
-            return View(_LoginModel);
+            return RedirectToAction("Index", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

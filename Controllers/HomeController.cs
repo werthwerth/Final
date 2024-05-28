@@ -28,13 +28,31 @@ namespace Final.Controllers
             {
                 this.Response.Cookies.Append("sessionId", _IndexModel.sessionId);
             }
-            return View(_IndexModel);
+            return View("Index", _IndexModel);
+        }
+        public IActionResult Roles()
+        {
+            var _IndexModel = new IndexModel();
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                _IndexModel = new IndexModel(_sessionId, _db);
+            }
+            if (_IndexModel.accessLevel != null && _IndexModel.accessLevel <= 2)
+            {
+                return View("Roles", _IndexModel);
+            }
+            else
+            {
+                if (!System.String.IsNullOrEmpty(_IndexModel.sessionId))
+                {
+                    this.Response.Cookies.Append("sessionId", _IndexModel.sessionId);
+                }
+                return View("Deny", _IndexModel);
+            }
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         public IActionResult Test()
         {
@@ -50,7 +68,7 @@ namespace Final.Controllers
                 _ExitModel = new ExitModel(_sessionId, _db);
                 this.Response.Cookies.Delete("sessionId");
             }
-            return View(_ExitModel);
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
