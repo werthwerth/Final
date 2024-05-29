@@ -28,9 +28,13 @@ namespace Final.EFW.Database.EntityActions
                 _role = _db.context.Roles.FirstOrDefault(x => x.Name == "Пользователи");
             }
             User _user = new User();
-            _user.Var(_login, _email, _password, _firstName, _lastName, _role);
+            _user.Var(_login, _email, _password, _firstName, _lastName);
             _db.context.Users.Add(_user);
             _db.context.SaveChanges();
+            if (_role != null)
+            {
+                UserRoleEntity.AddRoleToUser(_db, _user, _role);
+            }
         }
         protected internal static User? GetByLogin(string _login, DB _db)
         {

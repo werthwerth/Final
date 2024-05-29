@@ -20,54 +20,50 @@ namespace Final.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            var _TagsAddModel = new TagsAddModel();
             string? _sessionId = this.Request.Cookies["sessionId"];
-            Core.DB _db = new Core.DB();
-            _TagsAddModel  = new TagsAddModel(_sessionId, _db);
-            if (!System.String.IsNullOrEmpty(_sessionId) && _TagsAddModel.accessLevel != null)
+            if (!System.String.IsNullOrEmpty(_sessionId))
             {
-                return View("Add", _TagsAddModel);
+                Core.DB _db = new Core.DB();
+                var _TagsAddModel = new TagsAddModel(_sessionId, _db, this.RouteData);
+                if (_TagsAddModel.Access)
+                {
+                    return View("/Views/Tags/Add.cshtml", _TagsAddModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
             }
             else
             {
-                var _LoginModel = new LoginModel();
-                if (!System.String.IsNullOrEmpty(_sessionId))
-                {
-                    _LoginModel = new LoginModel(_sessionId, _db);
-                }
-                if (!System.String.IsNullOrEmpty(_LoginModel.sessionId))
-                {
-                    this.Response.Cookies.Append("sessionId", _LoginModel.sessionId);
-                }
-                
-                return View("/Views/Login/Login.cshtml", _LoginModel);
+                return RedirectToAction("Login", "Login");
             }
         }
+
 
 
         [HttpPost]
         public IActionResult Add(string tagName)
         {
-            var _TagsAddModel = new TagsAddModel();
-            Core.DB _db = new Core.DB();
             string? _sessionId = this.Request.Cookies["sessionId"];
             if (!System.String.IsNullOrEmpty(_sessionId))
             {
-                _TagsAddModel = new TagsAddModel(_sessionId, _db, tagName);
-                return View("Add", _TagsAddModel);
+                Core.DB _db = new Core.DB();
+                TagsAddModel _TagsAddModel = new TagsAddModel(_sessionId, _db, tagName, this.RouteData);
+                if (_TagsAddModel.Access)
+                {
+                    return View("/Views/Tags/Add.cshtml", _TagsAddModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
             }
             else
             {
-                var _LoginModel = new LoginModel();
-                if (!System.String.IsNullOrEmpty(_sessionId))
-                {
-                    _LoginModel = new LoginModel(_sessionId, _db);
-                }
-                if (!System.String.IsNullOrEmpty(_LoginModel.sessionId))
-                {
-                    this.Response.Cookies.Append("sessionId", _LoginModel.sessionId);
-                }
-                return View("/Views/Login/Login.cshtml", _LoginModel);
+                return RedirectToAction("Login", "Login");
             }
         }
 
