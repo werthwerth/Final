@@ -26,5 +26,9 @@ namespace Final.EFW.Database.EntityActions
                 _context.SaveChanges();
             }
         }
+        protected internal static Role? GetByName(DB _db, string _roleName)
+        {
+            return _db.context.Roles.FirstOrDefault(x => x.Name == _roleName);
+        }
     }
 }

@@ -15,7 +15,6 @@ namespace Final.Models
             LoginButtonController = "Login";
             LoginButtonAction = "Login";
             sessionId = null;
-            accessLevel = null;
         }
         public BaseModel(string _sessionId, Core.DB _db)
         {
@@ -34,7 +33,6 @@ namespace Final.Models
                     firstName = _user.FirstName;
                     lastName = _user.LastName;
                     sessionId = _sessionId;
-                    accessLevel = _user.Role.AcessLevel;
                     user = _user;
                 }
                 else
@@ -46,7 +44,6 @@ namespace Final.Models
                     LoginButtonController = "Login";
                     LoginButtonAction = "Login";
                     sessionId = null;
-                    accessLevel = null;
                 }
             }
             else
@@ -58,7 +55,6 @@ namespace Final.Models
                 LoginButtonController = "Login";
                 LoginButtonAction = "Login";
                 sessionId = null;
-                accessLevel = null;
             }
         }
         public string? RegisterButtonName { get; set; }
@@ -72,7 +68,6 @@ namespace Final.Models
         public string? firstName { get; set; }
         public string? lastName { get; set; }
         public string? sessionId { get; set; }
-        public int? accessLevel { get; set; }
         public User? user { get; set; }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Final.EFW.Database;
 using Final.EFW.Database.EntityActions;
-using Final.EFW.Entities;
-using Final.Static.EntitiesScripts;
-using Microsoft.Extensions.Logging;
 using static Final.EFW.Database.Core;
 
 namespace Final.Models
@@ -13,10 +10,22 @@ namespace Final.Models
         {
             Core.DB _db = new Core.DB();
         }
-        public TagsAddModel(string _sessionId, DB _db) : base(_sessionId, _db) { }
-        public TagsAddModel(string _sessionId, DB _db, string _tagName) : base(_sessionId, _db) 
+        public TagsAddModel(string _sessionId, DB _db) : base(_sessionId, _db) 
         {
-            TagEntity.Add(base.user, _db, _tagName);
+            Access = false;
         }
+        public TagsAddModel(string _sessionId, DB _db, RouteData _routes) : base(_sessionId, _db)
+        {
+            Access = AccessScripts.CheckAccess(_db, base.user, _routes);
+        }
+        public TagsAddModel(string _sessionId, DB _db, string _tagName, RouteData _routes) : base(_sessionId, _db) 
+        {
+            if (AccessScripts.CheckAccess(_db, base.user, _routes))
+            {
+                TagEntity.Add(base.user, _db, _tagName);
+            }
+            Access = AccessScripts.CheckAccess(_db, base.user, _routes);
+        }
+        public bool Access {  get; set; }
     }
 }

@@ -4,43 +4,6 @@
 
 @model IndexModel
 
-@section Header {
-    <div class="container-fluid">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Final</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarTagsDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Tags
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarTagsDropDown">
-                        <li><a class="text-dark dropdown-item" asp-area="" asp-controller="Tags" asp-action="Add">Add</a></li>
-                        <li><a class="text-dark dropdown-item" asp-area="" asp-controller="Tags" asp-action="All">All</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
-            <ul class="navbar-nav flex-grow-1 justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="@Model.RegisterButtonController" asp-action="@Model.RegisterButtonAction">@Model.RegisterButtonName</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="@Model.LoginButtonController" asp-action="@Model.LoginButtonAction">@Model.LoginButtonName</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-}
-
-
 <div class="text-center">
     <h1 class="display-4">Страница не найдена</h1>
     <img src="~/images/beaver_404.png" />

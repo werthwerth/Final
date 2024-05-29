@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Article add";
+}
+
+@model ArticleAddModel
+
+<div class="text-center">
+    <h1 class="display-4">Добавление статьи</h1>
+    <form id="addRoleForm" method="post">
+        <div class="mb-3">
+            @foreach (var item in @Model.Tags)
+            {
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="@item.Id" value="@item.Id">
+                    <label class="form-check-label" for="inlineCheckbox1">@item.Name</label>
+                </div>
+            }
+            <label>Заголовок</label><br />
+            <input type="text" name="ArticleSubject" id="ArticleSubject" /><br /><br />
+            <label>Контент</label><br />
+            <textarea type="text" name="ArticleText" id="ArticleText" rows="3" /></textarea><br />
+        </div>
+        <input type="submit" value="Отправить" />
+    </form>
+    <br />
+    <a class="link" asp-area="" asp-controller="Roles" asp-action="All">Перейти к списку всех статей</a>
+</div>
+

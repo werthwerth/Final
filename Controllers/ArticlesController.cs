@@ -1,18 +1,15 @@
 ﻿using Final.EFW.Database;
-using Final.EFW.Database.EntityActions;
 using Final.Models;
-using Final.Static;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using static Final.EFW.Database.Core;
 
 namespace Final.Controllers
 {
-    public class TagsController : Controller
+    public class ArticlesController : Controller
     {
         private readonly ILogger<HomeController> logger;
 
-        public TagsController(ILogger<HomeController> _logger)
+        public ArticlesController(ILogger<HomeController> _logger)
         {
             logger = _logger;
         }
@@ -24,24 +21,14 @@ namespace Final.Controllers
             if (!System.String.IsNullOrEmpty(_sessionId))
             {
                 Core.DB _db = new Core.DB();
-                var _TagsAddModel = new TagsAddModel(_sessionId, _db, this.RouteData);
-                if (_TagsAddModel.Access)
-                {
-                    return View("/Views/Tags/Add.cshtml", _TagsAddModel);
-                }
-                else
-                {
-                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
-                    return View("/Views/Shared/Deny.cshtml", _baseModel);
-                }
+                var _ArticlesAddModel = new ArticlesAddModel(_sessionId, _db, this.RouteData);
+                return View("/Views/Articles/Add.cshtml", _ArticlesAddModel);
             }
             else
             {
                 return RedirectToAction("Login", "Login");
             }
         }
-
-
 
         [HttpPost]
         public IActionResult Add(string tagName)
@@ -50,16 +37,8 @@ namespace Final.Controllers
             if (!System.String.IsNullOrEmpty(_sessionId))
             {
                 Core.DB _db = new Core.DB();
-                TagsAddModel _TagsAddModel = new TagsAddModel(_sessionId, _db, tagName, this.RouteData);
-                if (_TagsAddModel.Access)
-                {
-                    return View("/Views/Tags/Add.cshtml", _TagsAddModel);
-                }
-                else
-                {
-                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
-                    return View("/Views/Shared/Deny.cshtml", _baseModel);
-                }
+                ArticlesAddModel _ArticlesAddModel = new ArticlesAddModel(_sessionId, _db, tagName, this.RouteData);
+                return View("/Views/Articles/Add.cshtml", _ArticlesAddModel);
             }
             else
             {

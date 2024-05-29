@@ -20,16 +20,23 @@ namespace Final.Controllers
         public IActionResult Add()
         {
             string? _sessionId = this.Request.Cookies["sessionId"];
-            Core.DB _db = new Core.DB();
-            RolesAddModel _RolesAddModel = new RolesAddModel(_sessionId, _db);
-            if (!System.String.IsNullOrEmpty(_sessionId) && _RolesAddModel.accessLevel < 3)
+            if (!System.String.IsNullOrEmpty(_sessionId))
             {
-                return View("Add", _RolesAddModel);
+                Core.DB _db = new Core.DB();
+                var _RolesAddModel = new RolesAddModel(_sessionId, _db, this.RouteData);
+                if (_RolesAddModel.Access)
+                {
+                    return View("/Views/Roles/Add.cshtml", _RolesAddModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
             }
             else
             {
-                BaseModel _baseModel = new BaseModel(_sessionId, _db);
-                return View("/Views/Shared/Deny.cshtml", _baseModel);
+                return RedirectToAction("Login", "Login");
             }
         }
 
@@ -37,18 +44,24 @@ namespace Final.Controllers
         [HttpPost]
         public IActionResult Add(string roleName)
         {
-            var _RolesAddModel = new RolesAddModel();
             string? _sessionId = this.Request.Cookies["sessionId"];
             if (!System.String.IsNullOrEmpty(_sessionId))
             {
                 Core.DB _db = new Core.DB();
-                _RolesAddModel = new RolesAddModel(_sessionId, _db, roleName);
-                return View("Add", _RolesAddModel);
+                var _RolesAddModel = new RolesAddModel(_sessionId, _db, roleName, this.RouteData);
+                if (_RolesAddModel.Access)
+                {
+                    return View("/Views/Tags/Add.cshtml", _RolesAddModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
             }
-
             else
             {
-                return View("/Views/Shared/Deny.cshtml", _RolesAddModel);
+                return RedirectToAction("Login", "Login");
             }
         }
 
