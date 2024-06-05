@@ -42,7 +42,7 @@ namespace Final.Models
             if (_tags != null)
             {
                 TagList = _tags;
-            }
+        }
 
             Access = _access;
         }
@@ -53,9 +53,9 @@ namespace Final.Models
                 ArticleEntity.Add(_db, _subject, _text, base.user);
                 var _tags = TagEntity.GetAllTags(_db);
                 if (_tags != null)
-                {
+            {
                     TagList = _tags;
-                }
+            }
   
             Access = _access;
         }

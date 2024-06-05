@@ -12,24 +12,24 @@
                 <div class="mb-3 col container-sm">
                     
                     @if (@Model.TagList != null)
-                    {
+            {
                         <label><p class="fw-bold">Теги</p></label>
                         <br />
                         @foreach (var item in @Model.TagList)
                         {
-                            <div class="form-check form-check-inline">
+                <div class="form-check form-check-inline">
                                 @Html.CheckBox(@item.Id.ToString(), @item.Id.ToString())
                                 <label class="form-check-label" for="inlineCheckbox1">@item.Text</label>
-                            </div>
-                        }
+                </div>
+            }
                         <br />
                         <br />
                     }
                     <label><p class="fw-bold">Заголовок</label><br />
-                    <input type="text" name="ArticleSubject" id="ArticleSubject" /><br /><br />
+            <input type="text" name="ArticleSubject" id="ArticleSubject" /><br /><br />
                     <label><p class="fw-bold">Контент</p></label><br />
-                    <textarea type="text" name="ArticleText" id="ArticleText" rows="3" /></textarea><br />
-                </div>
+            <textarea type="text" name="ArticleText" id="ArticleText" rows="3" /></textarea><br />
+        </div>
             </div>
         </div>
         <input type="submit" value="Отправить" />
