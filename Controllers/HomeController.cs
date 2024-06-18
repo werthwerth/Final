@@ -10,9 +10,9 @@ namespace Final.Controllers
     {
         public IActionResult Index()
         {
-            Model = new IndexModel();
+            base.Model = new IndexModel();
             View = "/Views/Home/Index.cshtml";
-            return UnSecureGet();
+            return UnSecureGet(this.RouteData);
         }
     }
 }
