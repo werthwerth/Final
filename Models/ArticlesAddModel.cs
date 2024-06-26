@@ -19,6 +19,11 @@ namespace Final.Models
         public ArticlesAddModel(string _sessionId, DB _db, RouteData _routes) : base(_sessionId, _db)
         {
             Access = AccessScripts.CheckAccess(_db, base.user, _routes);
+            var _tags = TagEntity.GetAllTags(_db);
+            if (_tags != null)
+            {
+                TagList = _tags;
+            }
         }
         public ArticlesAddModel(string _sessionId, DB _db, string _tagName, RouteData _routes) : base(_sessionId, _db)
         {
@@ -29,7 +34,7 @@ namespace Final.Models
             Access = AccessScripts.CheckAccess(_db, base.user, _routes);
         }
         public bool Access { get; set; }
-        //public List<Tag> TagList { get; set; }
+        public List<Tag> TagList { get; set; }
     }
 }
 
