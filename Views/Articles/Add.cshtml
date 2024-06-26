@@ -2,35 +2,23 @@
     ViewData["Title"] = "Article add";
 }
 
-@model ArticlesAddModel
+@model ArticleAddModel
 
 <div class="text-center">
     <h1 class="display-4">Добавление статьи</h1>
     <form id="addRoleForm" method="post">
-        <div class="container container-md" style="max-width: 320px">
-            <div class="row justify-content-center">
-                <div class="mb-3 col container-sm">
-                    
-                    @if (@Model.TagList != null)
+        <div class="mb-3">
+            @foreach (var item in @Model.Tags)
             {
-                        <label><p class="fw-bold">Теги</p></label>
-                        <br />
-                        @foreach (var item in @Model.TagList)
-                        {
                 <div class="form-check form-check-inline">
-                                @Html.CheckBox(@item.Id.ToString(), @item.Id.ToString())
-                                <label class="form-check-label" for="inlineCheckbox1">@item.Text</label>
+                    <input class="form-check-input" type="checkbox" id="@item.Id" value="@item.Id">
+                    <label class="form-check-label" for="inlineCheckbox1">@item.Name</label>
                 </div>
             }
-                        <br />
-                        <br />
-                    }
-                    <label><p class="fw-bold">Заголовок</label><br />
+            <label>Заголовок</label><br />
             <input type="text" name="ArticleSubject" id="ArticleSubject" /><br /><br />
-                    <label><p class="fw-bold">Контент</p></label><br />
+            <label>Контент</label><br />
             <textarea type="text" name="ArticleText" id="ArticleText" rows="3" /></textarea><br />
-        </div>
-            </div>
         </div>
         <input type="submit" value="Отправить" />
     </form>

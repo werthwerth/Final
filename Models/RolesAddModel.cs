@@ -1,6 +1,5 @@
 ﻿using Final.EFW.Database;
 using Final.EFW.Database.EntityActions;
-using System.Collections;
 using static Final.EFW.Database.Core;
 
 namespace Final.Models
@@ -19,14 +18,14 @@ namespace Final.Models
         {
             Access = AccessScripts.CheckAccess(_db, base.user, _routes);
         }
-        public override void Exec(string _sessionId, DB _db, RouteData _routes, Hashtable _HashTable)
+        public RolesAddModel(string _sessionId, DB _db, string _tagName, RouteData _routes) : base(_sessionId, _db)
         {
-            Init(_sessionId, _db);
             if (AccessScripts.CheckAccess(_db, base.user, _routes))
             {
-                RoleEntity.Add(_HashTable["roleName"].ToString(), _db);
+                RoleEntity.Add(_tagName, _db);
             }
-            Access = AccessScripts.CheckAccess(_db, user, _routes);
+            Access = AccessScripts.CheckAccess(_db, base.user, _routes);
         }
+        public bool Access { get; set; }
     }
 }

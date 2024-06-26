@@ -3,13 +3,12 @@ using Final.EFW.Database.EntityActions;
 using Final.Models;
 using Final.Static;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 using System.Diagnostics;
 using static Final.EFW.Database.Core;
 
 namespace Final.Controllers
 {
-    public class TagsController : BaseController
+    public class TagsController : Controller
     {
         private readonly ILogger<HomeController> logger;
 
@@ -21,22 +20,53 @@ namespace Final.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            base.Model = new TagsAddModel();
-            View = "/Views/Tags/Add.cshtml";
-            return SecureGet(this.RouteData);
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                var _TagsAddModel = new TagsAddModel(_sessionId, _db, this.RouteData);
+                if (_TagsAddModel.Access)
+                {
+                    return View("/Views/Tags/Add.cshtml", _TagsAddModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
         }
+
+
 
         [HttpPost]
         public IActionResult Add(string tagName)
         {
-            Hashtable _formRows = new Hashtable
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
             {
-                { "tagName", tagName }
-            };
-            base.Model = new RolesAddModel();
-            View = "/Views/Roles/Add.cshtml";
-            return SecurePost(this.RouteData, _formRows);
+                Core.DB _db = new Core.DB();
+                TagsAddModel _TagsAddModel = new TagsAddModel(_sessionId, _db, tagName, this.RouteData);
+                if (_TagsAddModel.Access)
+                {
+                    return View("/Views/Tags/Add.cshtml", _TagsAddModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
         }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

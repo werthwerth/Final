@@ -23,13 +23,5 @@ namespace Final.EFW.Database.EntityActions
                 }
             }
         }
-        protected internal static Tag? GetById(DB _db, string _id)
-        {
-            return _db.context.Tags.FirstOrDefault(x => x.Id == _id);
-        }
-        protected internal static List<Tag>? GetAllTags (DB _db)
-        {
-            return _db.context.Tags.ToList();
-        }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using Final.EFW.Database;
 using Final.Models;
+using Final.Static;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 using System.Diagnostics;
 using static Final.EFW.Database.Core;
 
 namespace Final.Controllers
 {
-    public class RolesController : BaseController
+    public class RolesController : Controller
     {
         private readonly ILogger<HomeController> logger;
 
@@ -15,25 +15,54 @@ namespace Final.Controllers
         {
             logger = _logger;
         }
-        
+
         [HttpGet]
         public IActionResult Add()
         {
-            base.Model = new RolesAddModel();
-            View = "/Views/Roles/Add.cshtml";
-            return SecureGet(this.RouteData);
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                var _RolesAddModel = new RolesAddModel(_sessionId, _db, this.RouteData);
+                if (_RolesAddModel.Access)
+                {
+                    return View("/Views/Roles/Add.cshtml", _RolesAddModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
         }
+
 
         [HttpPost]
         public IActionResult Add(string roleName)
         {
-            Hashtable _formRows = new Hashtable
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
             {
-                { "roleName", roleName }
-            };
-            base.Model = new RolesAddModel();
-            View = "/Views/Roles/Add.cshtml";
-            return SecurePost(this.RouteData, _formRows);
+                Core.DB _db = new Core.DB();
+                var _RolesAddModel = new RolesAddModel(_sessionId, _db, roleName, this.RouteData);
+                if (_RolesAddModel.Access)
+                {
+                    return View("/Views/Tags/Add.cshtml", _RolesAddModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
