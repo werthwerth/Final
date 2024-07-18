@@ -25,13 +25,35 @@ namespace Final.Models
                 TagList = _tags;
             }
         }
-        public ArticlesAddModel(string _sessionId, DB _db, string _tagName, RouteData _routes) : base(_sessionId, _db)
+        public ArticlesAddModel(string _sessionId, DB _db, RouteData _routes, List<Tag> _tagList, string _subject, string _text) : base(_sessionId, _db)
         {
-            if (AccessScripts.CheckAccess(_db, base.user, _routes))
+            var _access = AccessScripts.CheckAccess(_db, base.user, _routes);
+
+            var _newArticle = ArticleEntity.Add(_db, _subject, _text, base.user);
+            foreach (var _tag in _tagList)
             {
-                TagEntity.Add(base.user, _db, _tagName);
+                ArticleTagEntity.Add(_db, _tag, _newArticle);
             }
-            Access = AccessScripts.CheckAccess(_db, base.user, _routes);
+            var _tags = TagEntity.GetAllTags(_db);
+            if (_tags != null)
+            {
+                TagList = _tags;
+            }
+
+            Access = _access;
+        }
+        public ArticlesAddModel(string _sessionId, DB _db, RouteData _routes, string _subject, string _text) : base(_sessionId, _db)
+        {
+            var _access = AccessScripts.CheckAccess(_db, base.user, _routes);
+
+            ArticleEntity.Add(_db, _subject, _text, base.user);
+            var _tags = TagEntity.GetAllTags(_db);
+            if (_tags != null)
+            {
+                TagList = _tags;
+            }
+
+            Access = _access;
         }
         public bool Access { get; set; }
         public List<Tag> TagList { get; set; }

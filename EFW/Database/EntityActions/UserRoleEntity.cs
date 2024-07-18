@@ -16,5 +16,33 @@ namespace Final.EFW.Database.EntityActions
             _db.context.Add(_userRole);
             _db.context.SaveChanges();
         }
+        protected internal static List<Role?>? GetRolesByUserId(Core.DB _db, string? _userId)
+        {
+            if (_userId != null)
+            {
+                User? _user = new User();
+                _user = _db.context.Users.FirstOrDefault(x => x.Id == _userId);
+                if (_user != null)
+                {
+                    List<Role?>? _userRoles = _db.context.UserRoles.Where(x => x.User == _user).Select(x => x.Role).ToList();
+                    if (_userRoles != null && _userRoles.Count > 0)
+                    {
+                        return _userRoles;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

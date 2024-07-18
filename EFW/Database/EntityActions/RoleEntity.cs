@@ -30,5 +30,9 @@ namespace Final.EFW.Database.EntityActions
         {
             return _db.context.Roles.FirstOrDefault(x => x.Name == _roleName);
         }
+        protected internal static List<Role> GetAll(DB _db)
+        {
+            return _db.context.Roles.ToList();
+        }
     }
 }

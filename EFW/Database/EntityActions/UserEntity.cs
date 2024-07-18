@@ -41,6 +41,11 @@ namespace Final.EFW.Database.EntityActions
             User? _user = _db.context.Users.FirstOrDefault(x => x.Login == _login);
             return _user;
         }
+        protected internal static User? GetById(string _id, DB _db)
+        {
+            User? _user = _db.context.Users.FirstOrDefault(x => x.Id == _id);
+            return _user;
+        }
         protected internal static User? Authorization(string _login, string _password, DB _db)
         {
             User? _user = _db.context.Users.FirstOrDefault(x => x.Login == _login && x.PasswordHash == _password) ?? null;
