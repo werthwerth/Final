@@ -6,7 +6,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Редактирование пользователя</h1>
-    <form id="addRoleForm" method="post">
+    <form id="changeUserForm" method="post">
         <div class="mb-3">
             <label><p class="fw-bold">Роли</p></label>
             <br />
@@ -20,13 +20,13 @@
             <br />
             <br />
             <label>Имя</label><br />
-            <input type="text" name="FirstName" id="FirstName" value=@Model.ContextUser.FirstName /><br /><br />
+            <input type="text" name="FirstName" id="FirstName" value="@Model.ContextUser.FirstName" /><br /><br />
             <label>Фамилия</label><br />
-            <input type="text" name="LastName" id="LastName" value=@Model.ContextUser.LastName /><br /><br />
+            <input type="text" name="LastName" id="LastName" value="@Model.ContextUser.LastName" /><br /><br />
             <label>E-mail</label><br />
-            <input type="text" name="Email" id="Email" value=@Model.ContextUser.Email /><br /><br />
+            <input type="text" name="Email" id="Email" value="@Model.ContextUser.Email" /><br /><br />
             <label>Пароль</label><br />
-            <input type="password" name="Password" id="Password" value="***" /><br /><br />
+            <input type="password" name="Password" id="Password" value="******" /><br /><br />
         </div>
         <input type="submit" value="Сохранить" />
     </form>

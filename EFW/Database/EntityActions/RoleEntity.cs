@@ -1,4 +1,5 @@
 ﻿using Final.EFW.Entities;
+using System.Security.Cryptography;
 using static Final.EFW.Database.Core;
 
 namespace Final.EFW.Database.EntityActions
@@ -33,6 +34,21 @@ namespace Final.EFW.Database.EntityActions
         protected internal static List<Role> GetAll(DB _db)
         {
             return _db.context.Roles.ToList();
+        }
+        protected internal static Role? GetById(DB _db, string _id)
+        {
+            return _db.context.Roles.FirstOrDefault(x => x.Id == _id);
+        }
+        protected internal static void ChangeRole(DB _db, string _roleId, string _roleName, string _roleDescription)
+        {
+            Role? _role = _db.context.Roles.FirstOrDefault(x => x.Id == _roleId);
+            if (_role != null)
+            {
+                _role.Name = _roleName;
+                _role.Description = _roleDescription;
+                _db.context.Roles.Update(_role);
+                _db.context.SaveChanges();
+            }
         }
     }
 }

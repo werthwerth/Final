@@ -40,6 +40,30 @@ namespace Final.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult Modify()
+        {
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                var _RolesModifyModel = new RolesModifyModel(_sessionId, _db, this.RouteData);
+                if (_RolesModifyModel.Access)
+                {
+                    return View("/Views/Roles/Modify.cshtml", _RolesModifyModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+        }
+
 
         [HttpPost]
         public IActionResult Add(string roleName)
@@ -52,6 +76,31 @@ namespace Final.Controllers
                 if (_RolesAddModel.Access)
                 {
                     return View("/Views/Tags/Add.cshtml", _RolesAddModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Modify(string RoleName, string RoleDescription)
+        {
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                var _RolesModifyModel = new RolesModifyModel(_sessionId, _db, this.RouteData);
+                if (_RolesModifyModel.Access)
+                {
+                    _RolesModifyModel.ChangeRole(_db, this.RouteData, RoleName, RoleDescription);
+                    return View("/Views/Roles/Modify.cshtml", _RolesModifyModel);
                 }
                 else
                 {

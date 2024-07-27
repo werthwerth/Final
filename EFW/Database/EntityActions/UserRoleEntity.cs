@@ -1,4 +1,5 @@
 ﻿using Final.EFW.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Final.EFW.Database.EntityActions
 {
@@ -14,6 +15,11 @@ namespace Final.EFW.Database.EntityActions
             UserRole _userRole = new UserRole();
             _userRole.Var(_user, _role);
             _db.context.Add(_userRole);
+            _db.context.SaveChanges();
+        }
+        protected internal static void DeleteAllUserRoles(Core.DB _db, User _user)
+        {
+            _db.context.UserRoles.Where(x => x.User == _user).ExecuteDelete();
             _db.context.SaveChanges();
         }
         protected internal static List<Role?>? GetRolesByUserId(Core.DB _db, string? _userId)

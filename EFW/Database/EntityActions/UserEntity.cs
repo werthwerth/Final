@@ -5,6 +5,7 @@ using System.Net.NetworkInformation;
 using Microsoft.AspNetCore.Identity;
 using Final.EFW.Entities;
 using static Final.EFW.Database.Core;
+using System.Runtime.CompilerServices;
 namespace Final.EFW.Database.EntityActions
 {
     internal class UserEntity
@@ -50,6 +51,18 @@ namespace Final.EFW.Database.EntityActions
         {
             User? _user = _db.context.Users.FirstOrDefault(x => x.Login == _login && x.PasswordHash == _password) ?? null;
             return _user;
+        }
+        protected internal static void UpdateUser(DB _db,User _user, string FirstName, string LastName, string Email, string? Password)
+        {
+            _user.FirstName = FirstName;
+            _user.LastName = LastName; 
+            _user.Email = Email;
+            if (Password != null) 
+            {
+                _user.PasswordHash = Password;
+            }
+            _db.context.Users.Update(_user);
+            _db.context.SaveChanges();
         }
     }
 }

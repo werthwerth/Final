@@ -6,7 +6,6 @@ namespace Final.Static
     {
         public static string Calculate(string data)
         {
-            ByteToString.Convert(SHA512.Create().ComputeHash(StringToByte.Convert(data)));
             return ByteToString.Convert(SHA512.Create().ComputeHash(StringToByte.Convert(data)));
         }
         public static string Calculate(string data, string salt)
