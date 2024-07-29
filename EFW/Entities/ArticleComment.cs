@@ -2,19 +2,18 @@
 
 namespace Final.EFW.Entities
 {
-    public class Comment
+    public class ArticleComment
     {
-        protected internal void Var(string _text, User? _author)
+        protected internal void Var(Article _article, Comment _comment)
         {
-            Text = _text;
-            Author = _author;
+            Article = _article;
+            Comment = _comment;
 
         }
         [Key]
         public string? Id { get; set; }
         public DateTime? CreateDate { get; set; }
-        public string? Text { get; set; }
-        public User? Author { get; set; }
         public Article? Article { get; set; }
+        public Comment? Comment { get; set; }
     }
 }

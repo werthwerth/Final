@@ -9,11 +9,13 @@
     <form id="changeUserForm" method="post">
         <div class="mb-3">
             <br />
+            <br />
+            <br />
             @foreach (var item in @Model.Articlelist)
             {
-                <div class="card" style="width: 18rem;">
+                <div class="card start-50 translate-middle" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title"><a class="link" asp-area="" asp-controller="Articles" asp-action="Modify" asp-route-id="@item.Id">@item.Subject</a></h5>
+                        <h5 class="card-title"><a class="link" asp-area="" asp-controller="Articles" asp-action="View" asp-route-id="@item.Id">@item.Subject</a></h5>
                         <br />
                         @foreach (var tag in item.ArticleTagList)
                         {

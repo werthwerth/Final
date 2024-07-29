@@ -173,6 +173,37 @@ namespace Final.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult View()
+        {
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                var _ArticlesViewModel = new ArticlesViewModel(_sessionId, _db, this.RouteData);
+                return View("/Views/Articles/View.cshtml", _ArticlesViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+        }
+        [HttpPost]
+        public IActionResult View(string CommentText)
+        {
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                var _ArticlesViewModel = new ArticlesViewModel(_sessionId, _db, this.RouteData, CommentText);
+                return View("/Views/Articles/View.cshtml", _ArticlesViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

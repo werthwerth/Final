@@ -9,11 +9,13 @@
     <form id="changeUserForm" method="post">
         <div class="mb-3">
             <br />
+            <br />
+            <br />
             @foreach (var item in @Model._viewedUsers)
             {
-                <div class="card" style="width: 18rem;">
+                <div class="card start-50 translate-middle" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title"><a class="link" asp-area="" asp-controller="Users" asp-action="Modify" asp-route-id="@item.Id">@item.FullName</a></h5>
+                        <h5 class="card-title"><a class="link" asp-area="" asp-controller="Users" asp-action="View" asp-route-id="@item.Id">@item.FullName</a></h5>
                         <br />
                         @foreach(var roleItem in item.Roles)
                         {
@@ -22,7 +24,7 @@
                         <span class="badge bg-primary">Primary</span>
                         <br />
                         <br />
-                        <p class="card-text">@item.Email</p>
+                        <p class="card-text">Email: @item.Email</p>
                     </div>
                 </div>
             }

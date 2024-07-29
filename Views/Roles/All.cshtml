@@ -9,13 +9,15 @@
     <form id="changeUserForm" method="post">
         <div class="mb-3">
             <br />
+            <br />
+            <br />
             @foreach (var item in @Model.Rolelist)
             {
-                <div class="card" style="width: 18rem;">
+                <div class="card start-50 translate-middle" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title"><a class="link" asp-area="" asp-controller="Roles" asp-action="Modify" asp-route-id="@item.Id">@item.Name</a></h5>
                         <br />
-                        <p class="card-text">Статей по тегу: @item.Description</p>
+                        <p class="card-text">Описание: @item.Description</p>
                     </div>
                 </div>
             }
