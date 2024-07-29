@@ -24,5 +24,9 @@ namespace Final.EFW.Database.EntityActions
             _db.context.ArticleTags.Where(x => x.Article == _article).ExecuteDelete();
             _db.context.SaveChanges();
         }
+        protected internal static int GetCountByTag(DB _db, Tag _tag)
+        {
+            return _db.context.ArticleTags.Where(x => x.Tag == _tag).Count();
+        }
     }
 }
