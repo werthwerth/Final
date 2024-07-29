@@ -65,6 +65,30 @@ namespace Final.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult All()
+        {
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                var _UsersAllModel = new UsersAllModel(_sessionId, _db, this.RouteData);
+                if (_UsersAllModel.Access)
+                {
+                    return View("/Views/Users/All.cshtml", _UsersAllModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+        }
+
 
         [HttpPost]
         public IActionResult Add(string roleName)

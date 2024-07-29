@@ -64,5 +64,9 @@ namespace Final.EFW.Database.EntityActions
             _db.context.Users.Update(_user);
             _db.context.SaveChanges();
         }
+        protected internal static List<User> GetAll (DB _db)
+        {
+            return _db.context.Users.ToList();
+        }
     }
 }
