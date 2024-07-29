@@ -1,4 +1,5 @@
 ﻿using Final.EFW.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Final.EFW.Database.EntityActions
 {
@@ -34,6 +35,18 @@ namespace Final.EFW.Database.EntityActions
                 _db.context.SaveChanges();
             }
 
+        }
+        protected internal static List<Article> GetAll(Core.DB _db)
+        {
+            return _db.context.Articles.ToList();
+        }
+        protected internal static void DeleteById(Core.DB _db, string? _id)
+        {
+            if (_id != null)
+            {
+                _db.context.Articles.Where(x => x.Id == _id).ExecuteDelete();
+                _db.context.SaveChanges();
+            }
         }
     }
 }

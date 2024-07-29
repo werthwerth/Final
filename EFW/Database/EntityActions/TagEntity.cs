@@ -31,5 +31,15 @@ namespace Final.EFW.Database.EntityActions
         {
             return _db.context.Tags.ToList();
         }
+        protected internal static void UpdateById(DB _db, string _id, string _tagText)
+        {
+            Tag? _tempTag = _db.context.Tags.FirstOrDefault(x => x.Id == _id);
+            if (_tempTag != null)
+            {
+                _tempTag.Text = _tagText;
+                _db.context.Tags.Update(_tempTag);
+                _db.context.SaveChanges();
+            }
+        }
     }
 }

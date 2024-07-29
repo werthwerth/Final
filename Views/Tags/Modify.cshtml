@@ -9,13 +9,13 @@
     <form id="addRoleForm" method="post">
         <div class="mb-3">
             <label>Название</label><br />
-            <input type="text" name="TagName" id="TagName" value=@Model.ContextTag.Text /><br /><br />
+            <input type="text" name="TagText" id="TagText" value=@Model.ContextTag.Text /><br /><br />
             <br />
             <br />
         </div>
         <input type="submit" value="Сохранить" />
     </form>
     <br />
-    <a class="link" asp-area="" asp-controller="Users" asp-action="All">Перейти к списку всех тегов</a>
+    <a class="link" asp-area="" asp-controller="Tags" asp-action="All">Перейти к списку всех тегов</a>
 </div>
 

@@ -75,7 +75,55 @@ namespace Final.Controllers
                 var _TagsModifyddModel = new TagsModifyModel(_sessionId, _db, this.RouteData);
                 if (_TagsModifyddModel.Access)
                 {
-                    return View("/Views/Tags/Add.cshtml", _TagsModifyddModel);
+                    return View("/Views/Tags/Modify.cshtml", _TagsModifyddModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Modify(string TagText)
+        {
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                var _TagsModifyddModel = new TagsModifyModel(_sessionId, _db, TagText, this.RouteData);
+                if (_TagsModifyddModel.Access)
+                {
+                    return View("/Views/Tags/Modify.cshtml", _TagsModifyddModel);
+                }
+                else
+                {
+                    BaseModel _baseModel = new BaseModel(_sessionId, _db);
+                    return View("/Views/Shared/Deny.cshtml", _baseModel);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult All()
+        {
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                var _TagsAllModel = new TagsAllModel(_sessionId, _db, this.RouteData);
+                if (_TagsAllModel.Access)
+                {
+                    return View("/Views/Tags/All.cshtml", _TagsAllModel);
                 }
                 else
                 {

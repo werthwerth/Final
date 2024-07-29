@@ -23,11 +23,12 @@ namespace Final.Models
                 ContextTag = TagEntity.GetById(_db, _routes.Values["id"].ToString());
             }
         }
-        public TagsModifyModel(string _sessionId, DB _db, string _tagName, RouteData _routes) : base(_sessionId, _db)
+        public TagsModifyModel(string _sessionId, DB _db, string _tagText, RouteData _routes) : base(_sessionId, _db)
         {
             if (AccessScripts.CheckAccess(_db, base.user, _routes))
             {
-                TagEntity.Add(base.user, _db, _tagName);
+                TagEntity.UpdateById(_db, _routes.Values["id"].ToString(), _tagText);
+                ContextTag = TagEntity.GetById(_db, _routes.Values["id"].ToString());
             }
             Access = AccessScripts.CheckAccess(_db, base.user, _routes);
         }

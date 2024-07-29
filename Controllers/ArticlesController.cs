@@ -141,6 +141,38 @@ namespace Final.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult All()
+        {
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                var _ArticlesAllModel = new ArticlesAllModel(_sessionId, _db, this.RouteData);
+                return View("/Views/Articles/All.cshtml", _ArticlesAllModel);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            string? _sessionId = this.Request.Cookies["sessionId"];
+            if (!System.String.IsNullOrEmpty(_sessionId))
+            {
+                Core.DB _db = new Core.DB();
+                var _ArticlesDeleteModel = new ArticlesDeleteModel(_sessionId, _db, this.RouteData);
+                return RedirectToAction("All", "Articles");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
