@@ -7,7 +7,6 @@ namespace Final.Controllers
 {
     public class BaseController : Controller
     {
-        private readonly ILogger<BaseController>? logger;
         internal BaseModel? Model { get; set; }
         internal new string? View {  get; set; }
         public IActionResult UnSecureGet()

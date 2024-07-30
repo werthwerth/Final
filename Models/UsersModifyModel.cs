@@ -58,13 +58,13 @@ namespace Final.Models
                             }
                         }
                     }
-                    if (Password.ToUpper() == ByteToString.Convert(SHA512.Create().ComputeHash(StringToByte.Convert("******"))))
+                    if (Password.ToLower() == ByteToString.Convert(SHA512.Create().ComputeHash(StringToByte.Convert("******"))))
                     {
                         Password = null;
                     }
                     else
                     {
-                        Password = Password.ToUpper();
+                        Password = Password.ToLower();
                     }
                     UserEntity.UpdateUser(_db, _contextUser, FirstName, LastName, Email, Password);
                 }

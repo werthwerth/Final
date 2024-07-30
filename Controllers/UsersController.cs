@@ -3,6 +3,7 @@ using Final.EFW.Database.EntityActions;
 using Final.EFW.Entities;
 using Final.Models;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 using System.Diagnostics;
 using static Final.EFW.Database.Core;
 
@@ -10,16 +11,13 @@ namespace Final.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly ILogger<HomeController> logger;
+        private Logger logger = LogManager.GetCurrentClassLogger();
 
-        public UsersController(ILogger<HomeController> _logger)
-        {
-            logger = _logger;
-        }
 
         [HttpGet]
         public IActionResult Add()
         {
+            logger.Debug(string.Format("method: {0} | controller: {1} | action: {2} | sessionId: {3}", this.Request.Method, this.RouteData.Values["controller"].ToString(), this.RouteData.Values["action"].ToString(), this.Request.Cookies["sessionId"]));
             string? _sessionId = this.Request.Cookies["sessionId"];
             if (!System.String.IsNullOrEmpty(_sessionId))
             {
@@ -44,6 +42,7 @@ namespace Final.Controllers
         [HttpGet]
         public IActionResult Modify()
         {
+            logger.Debug(string.Format("method: {0} | controller: {1} | action: {2} | id: {3} | sessionId: {4}", this.Request.Method, this.RouteData.Values["controller"].ToString(), this.RouteData.Values["action"].ToString(), this.RouteData.Values["id"].ToString(), this.Request.Cookies["sessionId"]));
             string? _sessionId = this.Request.Cookies["sessionId"];
             if (!System.String.IsNullOrEmpty(_sessionId))
             {
@@ -68,6 +67,7 @@ namespace Final.Controllers
         [HttpGet]
         public IActionResult All()
         {
+            logger.Debug(string.Format("method: {0} | controller: {1} | action: {2} | sessionId: {3}", this.Request.Method, this.RouteData.Values["controller"].ToString(), this.RouteData.Values["action"].ToString(), this.Request.Cookies["sessionId"]));
             string? _sessionId = this.Request.Cookies["sessionId"];
             if (!System.String.IsNullOrEmpty(_sessionId))
             {
@@ -93,6 +93,7 @@ namespace Final.Controllers
         [HttpPost]
         public IActionResult Add(string roleName)
         {
+            logger.Debug(string.Format("method: {0} | controller: {1} | action: {2} | sessionId: {3}", this.Request.Method, this.RouteData.Values["controller"].ToString(), this.RouteData.Values["action"].ToString(), this.Request.Cookies["sessionId"]));
             string? _sessionId = this.Request.Cookies["sessionId"];
             if (!System.String.IsNullOrEmpty(_sessionId))
             {
@@ -116,6 +117,7 @@ namespace Final.Controllers
         [HttpPost]
         public IActionResult Modify(string FirstName, string LastName, string Email, string Password)
         {
+            logger.Debug(string.Format("method: {0} | controller: {1} | action: {2} | id: {3} | sessionId: {4}", this.Request.Method, this.RouteData.Values["controller"].ToString(), this.RouteData.Values["action"].ToString(), this.RouteData.Values["id"].ToString(), this.Request.Cookies["sessionId"])); 
             string? _sessionId = this.Request.Cookies["sessionId"];
             if (!System.String.IsNullOrEmpty(_sessionId))
             {

@@ -15,7 +15,7 @@
             {
                 <div class="card start-50 translate-middle" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title"><a class="link" asp-area="" asp-controller="Users" asp-action="View" asp-route-id="@item.Id">@item.FullName</a></h5>
+                        <h5 class="card-title"><a class="link" asp-area="" asp-controller="Users" asp-action="Modify" asp-route-id="@item.Id">@item.FullName</a></h5>
                         <br />
                         @foreach(var roleItem in item.Roles)
                         {
